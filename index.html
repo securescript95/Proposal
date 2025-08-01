@@ -1,47 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Minimalist Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Added smoke overlay animation */
+        @keyframes smokeOverlay {
+            0% { opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { opacity: 0; }
+        }
+        :root {
+            --pink: #FFD1DC;
+            --mauve: #D8BFD8;
+            --dark-pink: #FF9BB3;
+            --white-glass: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--pink), var(--mauve));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Bokeh background */
+        .bokeh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .bokeh span {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 40px 20px rgba(255, 255, 255, 0.7);
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+
+        /* Glass panels */
+        .glass-panel {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: var(--white-glass);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            margin: 2rem;
+            z-index: 2;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .glass-panel.small {
+            padding: 2rem;
+            opacity: 0.9;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        input::placeholder {
+            color: rgba(51, 51, 51, 0.6);
+        }
+
+        /* Buttons */
+        button {
+            background: rgba(255, 155, 179, 0.7);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(255, 155, 179, 0.3);
+            font-weight: 500;
+        }
+
+        button:hover {
+            background: rgba(255, 155, 179, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 155, 179, 0.4);
+        }
+
+        button:active {
+            transform: scale(0.95) translateY(0);
+            transition: all 0.1s ease;
+        }
+
+        /* Page transitions */
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="background">
-    <div class="gradient"></div>
-    <div class="bokeh">
-      <span class="blob b1"></span>
-      <span class="blob b2"></span>
-      <span class="blob b3"></span>
+    <!-- Bokeh background -->
+    <div class="bokeh" id="bokeh"></div>
+
+    <!-- Home Page -->
+    <div class="page active" id="home">
+        <div class="glass-panel">
+            <h1>Welcome</h1>
+            <p>Enter your name to see a special message</p>
+            <div class="form-group">
+                <input type="text" id="nameInput" placeholder="Your name..." autocomplete="off">
+            </div>
+            <button id="submitBtn">Continue</button>
+        </div>
     </div>
-  </div>
 
-  <div id="smoke-container"></div>
+    <!-- Special Page -->
+    <div class="page" id="special">
+        <div class="glass-panel">
+            <h1>Special one</h1>
+            <p>The stars aligned when you were born, creating someone truly extraordinary. This moment was crafted just for you.</p>
+            <button id="backHomeFromSpecial">Return Home</button>
+        </div>
+    </div>
 
-  <main>
-    <!-- HOME PAGE -->
-    <section class="glass-panel" id="home-page">
-      <h1 class="cursive">Welcome</h1>
-      <input class="input" id="nameInput" type="text" placeholder="Be honest else , this is the last chance" />
-      <button class="btn" id="enterBtn">Enter</button>
-      <p class="cursive">This is the last chance </p>
-    </section>
+    <!-- Sorry Page -->
+    <div class="page" id="sorry">
+        <div class="glass-panel small">
+            <h1>Sorry, this is not for you</h1>
+            <p>The magic happens elsewhere this time, but your moment will come.</p>
+            <button id="backHomeFromSorry">Return Home</button>
+        </div>
+    </div>
 
-    <!-- SPECIAL PAGE -->
-    <section class="glass-panel hidden" id="special-page">
-      <h1 class="cursive">Special one</h1>
-      <p>You’ve found the special space. This one's just for you.</p>
-      <button class="btn back" data-target="home-page">Back to Home</button>
-    </section>
+    <script>
+        // Create bokeh effect
+        function createBokeh() {
+            const bokehContainer = document.getElementById('bokeh');
+            for (let i = 0; i < 15; i++) {
+                const bokeh = document.createElement('span');
+                const size = Math.random() * 60 + 20;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 30 + 20;
 
-    <!-- SORRY PAGE -->
-    <section class="glass-panel hidden" id="sorry-page">
-      <h1>Sorry, this is not for you.</h1>
-      <button class="btn back" data-target="home-page">Back to Home</button>
-    </section>
-  </main>
+                bokeh.style.width = `${size}px`;
+                bokeh.style.height = `${size}px`;
+                bokeh.style.left = `${posX}%`;
+                bokeh.style.bottom = `-${size}px`;
+                bokeh.style.animationDelay = `${delay}s`;
+                bokeh.style.animationDuration = `${duration}s`;
+                
+                bokehContainer.appendChild(bokeh);
+            }
+        }
 
-  <script src="script.js"></script>
+        // Smoke transition effect
+        function createSmokeTransition(callback) {
+            const button = event.target;
+            const buttonRect = button.getBoundingClientRect();
+            const centerX = buttonRect.left + buttonRect.width/2;
+            const centerY = buttonRect.top + buttonRect.height/2;
+            
+            const smoke = document.createElement('div');
+            smoke.className = 'smoke';
+            document.body.appendChild(smoke);
+            
+            // Create expanding puff of smoke
+            const puff = document.createElement('div');
+            puff.style.position = 'absolute';
+            puff.style.width = '0';
+            puff.style.height = '0';
+            puff.style.borderRadius = '50%';
+            puff.style.background = 'rgba(255, 155, 179, 0.7)';
+            puff.style.filter = 'blur(40px)';
+            puff.style.transform = 'translate(-50%, -50%)';
+            puff.style.left = `${centerX}px`;
+            puff.style.top = `${centerY}px`;
+            smoke.appendChild(puff);
+            
+            // Animate the puff
+            let size = 0;
+            const grow = setInterval(() => {
+                size += 20;
+                puff.style.width = `${size}px`;
+                puff.style.height = `${size}px`;
+                puff.style.opacity = `${1 - size/1000}`;
+                if (size > 1000) {
+                    clearInterval(grow);
+                    callback();
+                    setTimeout(() => smoke.remove(), 200);
+                }
+            }, 10);
+        }
+
+        // Page navigation
+        function navigateToPage(pageId) {
+            document.querySelector('.page.active').classList.remove('active');
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Button animations
+        function addButtonEffects() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.addEventListener('mousedown', () => {
+                    btn.style.transform = 'scale(0.95)';
+                });
+                
+                btn.addEventListener('mouseup', () => {
+                    btn.style.transform = '';
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+                
+                btn.addEventListener('click', function(e) {
+                    const id = this.id;
+                    createSmokeTransition(() => {
+                        if (id === 'backHomeFromSpecial' || id === 'backHomeFromSorry') {
+                            navigateToPage('home');
+                            document.getElementById('nameInput').focus();
+                        } else {
+                            const name = document.getElementById('nameInput').value.toLowerCase();
+                            if (name.includes('special')) {
+                                navigateToPage('special');
+                            } else {
+                                navigateToPage('sorry');
+                            }
+                        }
+                    });
+                });
+            });
+        }
+
+        // Form submission
+        function setupForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const nameInput = document.getElementById('nameInput');
+            
+            submitBtn.addEventListener('click', (e) => {
+                const name = nameInput.value.toLowerCase();
+                createSmokeTransition(() => {
+                    if (name.includes('special')) {
+                        navigateToPage('special');
+                    } else {
+                        navigateToPage('sorry');
+                    }
+                });
+            });
+            
+            // Set focus to input on page load
+            nameInput.focus();
+            nameInput.addEventListener('click', function(e) {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '100px';
+                ripple.style.height = '100px';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.left = `${e.clientX}px`;
+                ripple.style.top = `${e.clientY}px`;
+                ripple.style.animation = 'ripple 0.6s linear';
+                document.body.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        }
+
+        // Return home buttons
+        function setupNavigation() {
+            document.getElementById('backHomeFromSpecial').addEventListener('click', (e) => {
+                createSmokeTransition(() => {
+                    navigateToPage('home');
+                    document.getElementById('nameInput').focus();
+                });
+            });
+            
+            document.getElementById('backHomeFromSorry').addEventListener('click', (e) => {
+                createSmokeTransition(() => {
+                    navigateToPage('home');
+                    document.getElementById('nameInput').focus();
+                });
+            });
+        }
+
+        // Initialize everything
+        window.addEventListener('DOMContentLoaded', () => {
+            createBokeh();
+            addButtonEffects();
+            setupForm();
+            setupNavigation();
+        });
+    </script>
 </body>
 </html>
