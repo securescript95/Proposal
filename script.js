@@ -9,6 +9,8 @@ const pages = {
 function showPage(name) {
   Object.values(pages).forEach(page => page.classList.add('hidden'));
   pages[name].classList.remove('hidden');
+  console.log("JS loaded!");
+
 }
 
 function createSmokeAt(x, y, callback) {
