@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background">
+    <div class="gradient"></div>
+    <div class="bokeh">
+      <span class="blob b1"></span>
+      <span class="blob b2"></span>
+      <span class="blob b3"></span>
+    </div>
+  </div>
+
+  <div id="smoke-container"></div>
+
+  <main>
+    <!-- HOME PAGE -->
+    <section class="glass-panel" id="home-page">
+      <h1 class="cursive">Welcome</h1>
+      <input class="input" id="nameInput" type="text" placeholder="Be honest else , this is the last chance" />
+      <button class="btn" id="enterBtn">Enter</button>
+      <p class="cursive">This is the last chance </p>
+    </section>
+
+    <!-- SPECIAL PAGE -->
+    <section class="glass-panel hidden" id="special-page">
+      <h1 class="cursive">Special one</h1>
+      <p>You’ve found the special space. This one's just for you.</p>
+      <button class="btn back" data-target="home-page">Back to Home</button>
+    </section>
+
+    <!-- SORRY PAGE -->
+    <section class="glass-panel hidden" id="sorry-page">
+      <h1>Sorry, this is not for you.</h1>
+      <button class="btn back" data-target="home-page">Back to Home</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
