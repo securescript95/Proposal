@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}My Heart to You - Love & Romance{% endblock %}
+
+{% block content %}
+<div class="page-container proposal-page">
+    <div class="floating-hearts">
+        <div class="heart heart-1">♥</div>
+        <div class="heart heart-2">♥</div>
+        <div class="heart heart-3">♥</div>
+        <div class="heart heart-4">♥</div>
+        <div class="heart heart-5">♥</div>
+    </div>
+    
+    <div class="proposal-content">
+        <div class="proposal-text-container">
+            <h1 class="proposal-title fade-in">My Dearest Love</h1>
+            
+            <div class="proposal-messages">
+                <p class="proposal-line fade-in" style="animation-delay: 0.5s">
+                    From the moment you walked into my life, everything changed. 
+                    You brought colors to my black and white world.
+                </p>
+                
+                <p class="proposal-line fade-in" style="animation-delay: 1s">
+                    Your smile lights up my darkest days, and your love gives me strength 
+                    to face any challenge that comes our way.
+                </p>
+                
+                <p class="proposal-line fade-in" style="animation-delay: 1.5s">
+                    I want to wake up every morning knowing that you're mine, 
+                    and fall asleep every night in your loving arms.
+                </p>
+                
+                <p class="proposal-line fade-in special-line" style="animation-delay: 2s">
+                    Will you be my forever and always? 
+                    Will you make me the happiest person alive?
+                </p>
+            </div>
+            
+            <div class="proposal-actions">
+                <a href="https://wa.me/{{ phone_number }}?text=I%20love%20you%20and%20I%27m%20happy%20to%20have%20you%20in%20my%20life" 
+                   class="whatsapp-btn pulse-animation" 
+                   target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Send My Love</span>
+                </a>
+                
+                <button class="home-btn" onclick="window.location.href='{{ url_for('home') }}'">
+                    <i class="fas fa-home"></i>
+                    <span>Return Home</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add entrance animations
+    const elements = document.querySelectorAll('.fade-in');
+    elements.forEach((el, index) => {
+        setTimeout(() => {
+            el.classList.add('visible');
+        }, index * 300);
+    });
+    
+    // Add heartbeat effect to special line
+    const specialLine = document.querySelector('.special-line');
+    setInterval(() => {
+        specialLine.style.transform = 'scale(1.02)';
+        setTimeout(() => {
+            specialLine.style.transform = 'scale(1)';
+        }, 200);
+    }, 2000);
+});
+</script>
+{% endblock %}
