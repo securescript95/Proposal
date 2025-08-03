@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special One - Love & Romance</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <div class="page-container gallery-page">
+            <div class="gallery-header">
+                <h1 class="special-title">Special one</h1>
+            </div>
+            
+            <div class="photo-gallery">
+                <div class="photo-slide active" data-photo="0">
+                    <div class="photo-background" style="background-image: url('https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=700&fit=crop&crop=center')"></div>
+                    <div class="photo-overlay"></div>
+                    
+                    <div class="photo-info">
+                        <h2 class="photo-title">First Moment</h2>
+                        <p class="photo-description">When our eyes first met, the world stopped for a moment</p>
+                    </div>
+                </div>
+                
+                <div class="photo-slide" data-photo="1">
+                    <div class="photo-background" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=700&fit=crop&crop=center')"></div>
+                    <div class="photo-overlay"></div>
+                    
+                    <div class="photo-info">
+                        <h2 class="photo-title">Golden Hour</h2>
+                        <p class="photo-description">Every sunset reminds me of your beautiful smile</p>
+                    </div>
+                </div>
+                
+                <div class="photo-slide" data-photo="2">
+                    <div class="photo-background" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=700&fit=crop&crop=center')"></div>
+                    <div class="photo-overlay"></div>
+                    
+                    <div class="photo-info">
+                        <h2 class="photo-title">Together Forever</h2>
+                        <p class="photo-description">In your arms, I found my home and my peace</p>
+                    </div>
+                </div>
+                
+                <div class="photo-slide" data-photo="3">
+                    <div class="photo-background" style="background-image: url('https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=700&fit=crop&crop=center')"></div>
+                    <div class="photo-overlay"></div>
+                    
+                    <div class="photo-info">
+                        <h2 class="photo-title">Starlit Dreams</h2>
+                        <p class="photo-description">Under the stars, we made promises that will last forever</p>
+                    </div>
+                </div>
+                
+                <div class="photo-slide" data-photo="4">
+                    <div class="photo-background" style="background-image: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=700&fit=crop&crop=center')"></div>
+                    <div class="photo-overlay"></div>
+                    
+                    <div class="photo-info">
+                        <h2 class="photo-title">Pure Joy</h2>
+                        <p class="photo-description">Your laughter is the most beautiful melody I know</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-navigation">
+                <button class="nav-btn prev-btn" onclick="changePhoto(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="photo-indicators">
+                    <span class="indicator active" onclick="goToPhoto(0)"></span>
+                    <span class="indicator" onclick="goToPhoto(1)"></span>
+                    <span class="indicator" onclick="goToPhoto(2)"></span>
+                    <span class="indicator" onclick="goToPhoto(3)"></span>
+                    <span class="indicator" onclick="goToPhoto(4)"></span>
+                </div>
+                <button class="nav-btn next-btn" onclick="changePhoto(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="gallery-actions">
+                <button class="continue-btn" onclick="window.location.href='proposal.html'">
+                    Continue Journey
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="main.js"></script>
+    
+    <script>
+    let currentPhoto = 0;
+    const totalPhotos = 5;
+
+    function changePhoto(direction) {
+        const slides = document.querySelectorAll('.photo-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        // Remove active class from current photo
+        slides[currentPhoto].classList.remove('active');
+        indicators[currentPhoto].classList.remove('active');
+        
+        // Calculate new photo index
+        currentPhoto += direction;
+        if (currentPhoto >= totalPhotos) currentPhoto = 0;
+        if (currentPhoto < 0) currentPhoto = totalPhotos - 1;
+        
+        // Add active class to new photo
+        slides[currentPhoto].classList.add('active');
+        indicators[currentPhoto].classList.add('active');
+    }
+
+    function goToPhoto(index) {
+        const slides = document.querySelectorAll('.photo-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        slides[currentPhoto].classList.remove('active');
+        indicators[currentPhoto].classList.remove('active');
+        
+        currentPhoto = index;
+        
+        slides[currentPhoto].classList.add('active');
+        indicators[currentPhoto].classList.add('active');
+    }
+
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let startY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', function(e) {
+        if (!startX || !startY) return;
+        
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        
+        const diffX = startX - endX;
+        const diffY = startY - endY;
+        
+        // Only trigger if horizontal swipe is more significant than vertical
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+            if (diffX > 0) {
+                changePhoto(1); // Swipe left - next photo
+            } else {
+                changePhoto(-1); // Swipe right - previous photo
+            }
+        }
+        
+        startX = 0;
+        startY = 0;
+    });
+
+    // Auto-advance photos every 5 seconds
+    setInterval(() => {
+        changePhoto(1);
+    }, 5000);
+    </script>
+</body>
+</html>
