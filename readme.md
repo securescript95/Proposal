@@ -16,7 +16,7 @@ Hence their it is , this website i created (technicaly) .
 >This website is highly hardcoded to work for my personal case senario. <br>
 so, for anyone who want to use this as a base or refrence have to tewak a lot of things . <br>
 Therefore one should know the basics of the programming languages use in this project like <br>
-- PYTHON
+
 - HTML
 - JAVA SCRIPT
 - CSS
